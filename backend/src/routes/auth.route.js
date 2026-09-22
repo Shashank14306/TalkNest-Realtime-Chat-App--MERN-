@@ -5,7 +5,13 @@ import { arcjetProtection } from "../middleware/arcjet.middleware.js";
 
 const router = express.Router();
 
-router.use(arcjetProtection);
+// 👇 OPTIONS preflight requests par Arcjet bypass karne ke liye yeh check lagao
+router.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+  arcjetProtection(req, res, next);
+});
 
 router.post("/signup", signup);
 router.post("/login", login);
