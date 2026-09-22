@@ -11,11 +11,14 @@ import { app, server } from "./lib/socket.js";
 
 const PORT = ENV.PORT || 3000;
 
+// 👇 Yeh line sabse zaroori hai Render jaise cloud hosts ke liye
+app.set("trust proxy", 1);
+
 app.use(express.json({ limit: "5mb" })); // req.body
 
-// Bulletproof CORS setup (Dynamic origin reflection with credentials)
+// Bulletproof CORS setup
 app.use(cors({
-  origin: true, // Automatically allows the requesting frontend origin
+  origin: true, 
   credentials: true
 }));
 
