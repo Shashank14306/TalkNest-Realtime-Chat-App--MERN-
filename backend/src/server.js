@@ -19,7 +19,7 @@ app.use(cors({
   credentials: true 
 }));
 
-// 👈 Yeh line add karni hai taaki OPTIONS preflight request kabhi 404 na de
+// Preflight handling taaki OPTIONS request 404 na de
 app.options("*", cors({ 
   origin: ENV.CLIENT_URL, 
   credentials: true 
