@@ -13,16 +13,15 @@ const PORT = ENV.PORT || 3000;
 
 app.use(express.json({ limit: "5mb" })); // req.body
 
-// CORS configuration
-app.use(cors({ 
-  origin: ENV.CLIENT_URL, 
-  credentials: true 
+// Bulletproof CORS setup (Dynamic origin reflection with credentials)
+app.use(cors({
+  origin: true, // Automatically allows the requesting frontend origin
+  credentials: true
 }));
 
-// Preflight handling taaki OPTIONS request 404 na de
-app.options("*", cors({ 
-  origin: ENV.CLIENT_URL, 
-  credentials: true 
+app.options("*", cors({
+  origin: true,
+  credentials: true
 }));
 
 app.use(cookieParser());
