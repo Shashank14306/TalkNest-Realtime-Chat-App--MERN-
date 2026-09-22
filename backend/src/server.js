@@ -11,20 +11,19 @@ import { app, server } from "./lib/socket.js";
 
 const PORT = ENV.PORT || 3000;
 
-// 👇 Yeh line sabse zaroori hai Render jaise cloud hosts ke liye
 app.set("trust proxy", 1);
+app.use(express.json({ limit: "5mb" }));
 
-app.use(express.json({ limit: "5mb" })); // req.body
-
-// Bulletproof CORS setup
+// 👇 Yeh sabse clean aur standard CORS setup hai jo har preflight ko handle kar leta hai
 app.use(cors({
-  origin: true, 
-  credentials: true
-}));
-
-app.options("*", cors({
-  origin: true,
-  credentials: true
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://talk-nest-realtime-chat-app-mern.vercel.app"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }));
 
 app.use(cookieParser());
