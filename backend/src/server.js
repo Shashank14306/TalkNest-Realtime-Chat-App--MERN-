@@ -12,7 +12,19 @@ import { app, server } from "./lib/socket.js";
 const PORT = ENV.PORT || 3000;
 
 app.use(express.json({ limit: "5mb" })); // req.body
-app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+
+// CORS configuration
+app.use(cors({ 
+  origin: ENV.CLIENT_URL, 
+  credentials: true 
+}));
+
+// 👈 Yeh line add karni hai taaki OPTIONS preflight request kabhi 404 na de
+app.options("*", cors({ 
+  origin: ENV.CLIENT_URL, 
+  credentials: true 
+}));
+
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
