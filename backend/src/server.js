@@ -14,7 +14,7 @@ const PORT = ENV.PORT || 3000;
 app.set("trust proxy", 1);
 app.use(express.json({ limit: "5mb" }));
 
-// 👇 Yeh sabse clean aur standard CORS setup hai jo har preflight ko handle kar leta hai
+// Yeh sabse clean aur standard CORS setup hai jo har preflight ko handle kar leta hai
 app.use(cors({
   origin: [
     "http://localhost:5173",
